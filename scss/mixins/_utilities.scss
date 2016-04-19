@@ -263,3 +263,40 @@
     }
   }
 }
+
+// Icon font icons
+@mixin icon-base() {
+  &::before {
+    font-family: "fec-icons" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@mixin icon-before($content) {
+  @include icon-base();
+
+  &::before {
+    content: $content;
+  }
+}
+
+@mixin icon-button($content, $position) {
+  @include icon-before($content);
+
+  &::before {
+    position: absolute;
+
+    @if $position == left {
+      left: 1rem;
+    } @else {
+      right: 1rem;
+    }
+  }
+}
