@@ -29,6 +29,34 @@ We’re thrilled you want to get involved!
 
 ---
 
+## Usage
+
+Here’s how to use fec-style in your application.
+
+    npm install fec-style
+
+### Javascript
+
+Some UI components have some configuration. Set these variables on `window`:
+
+- `API_LOCATION` the URL of your API.
+- `API_KEY` your API key.
+- `API_VERSION` the version of the API you’re using.
+
+```javascript
+// Require components individually.
+var SiteNav = require('fec-style/js/site-nav').SiteNav;
+
+$('.js-site-nav').each(function () {
+  new SiteNav(this);
+});
+```
+
+### SCSS
+
+Add `node_modules/fec-style/scss` to your scss library path and `@import`
+components individually, or pull in everything with `@import "styles";`.
+
 
 ## Set up
 
