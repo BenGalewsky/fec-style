@@ -51,6 +51,10 @@ var candidateEngine = createEngine({
   remote: {
     url: getUrl('candidates'),
     wildcard: '%QUERY',
+    ajax: {
+		      accepts: "application/json",
+		      dataType:"json"
+    },
     transform: function(response) {
       return _.map(response.results, formatCandidate);
     }
@@ -61,6 +65,11 @@ var committeeEngine = createEngine({
   remote: {
     url: getUrl('committees'),
     wildcard: '%QUERY',
+    ajax: {
+		      accepts: "application/json",
+		      dataType:"json"
+    },
+    
     transform: function(response) {
       return response.results;
     },
@@ -138,7 +147,11 @@ Typeahead.prototype.handleChangeEvent = function(data) {
 };
 
 Typeahead.prototype.select = function(event, datum) {
-  window.location = this.url + this.dataset.name + '/' + datum.id;
+	if(this.dataset == candidateDataset){
+		window.doCandidateQuery(datum.id);
+	}else{
+		window.doCommitteeQuery(datum.id);
+	}
 };
 
 module.exports = {

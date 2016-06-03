@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>
+  Campaign finance data
+ - beta.FEC.gov</title>
+ <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- START SIGMA IMPORTS -->
+<script src="js/linkurious/sigma.core.js"></script>
+<script src="js/linkurious/conrad.js"></script>
+<script src="js/linkurious/utils/sigma.utils.js"></script>
+<script src="js/linkurious/utils/sigma.polyfills.js"></script>
+<script src="js/linkurious/sigma.settings.js"></script>
+<script src="js/linkurious/classes/sigma.classes.dispatcher.js"></script>
+<script src="js/linkurious/classes/sigma.classes.configurable.js"></script>
+<script src="js/linkurious/classes/sigma.classes.graph.js"></script>
+<script src="js/linkurious/classes/sigma.classes.camera.js"></script>
+<script src="js/linkurious/classes/sigma.classes.quad.js"></script>
+<script src="js/linkurious/captors/sigma.captors.mouse.js"></script>
+<script src="js/linkurious/captors/sigma.captors.touch.js"></script>
+<script src="js/linkurious/renderers/sigma.renderers.canvas.js"></script>
+<script src="js/linkurious/renderers/sigma.renderers.svg.js"></script>
+<script src="js/linkurious/renderers/sigma.renderers.def.js"></script>
+<script src="js/linkurious/renderers/canvas/sigma.canvas.labels.def.js"></script>
+<script src="js/linkurious/renderers/canvas/sigma.canvas.hovers.def.js"></script>
+<!-- <script src="js/linkurious/renderers/canvas/sigma.canvas.nodes.def.js"></script> -->
+<script src="js/linkurious/renderers/canvas/sigma.canvas.edges.def.js"></script>
+<script src="js/linkurious/renderers/canvas/sigma.canvas.edges.curve.js"></script>
+<script src="js/linkurious/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
+<script src="js/linkurious/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+<script src="js/linkurious/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
+<script src="js/linkurious/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
+<script src="js/linkurious/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
+<script src="js/linkurious/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
+<script src="js/linkurious/renderers/canvas/sigma.canvas.extremities.def.js"></script>
+<script src="js/linkurious/renderers/svg/sigma.svg.utils.js"></script>
+<script src="js/linkurious/renderers/svg/sigma.svg.nodes.def.js"></script>
+<script src="js/linkurious/renderers/svg/sigma.svg.edges.def.js"></script>
+<script src="js/linkurious/renderers/svg/sigma.svg.edges.curve.js"></script>
+<script src="js/linkurious/renderers/svg/sigma.svg.edges.curvedArrow.js"></script>
+<script src="js/linkurious/renderers/svg/sigma.svg.labels.def.js"></script>
+<script src="js/linkurious/renderers/svg/sigma.svg.hovers.def.js"></script>
+<script src="js/linkurious/middlewares/sigma.middlewares.rescale.js"></script>
+<script src="js/linkurious/middlewares/sigma.middlewares.copy.js"></script>
+<script src="js/linkurious/misc/sigma.misc.animation.js"></script>
+<script src="js/linkurious/misc/sigma.misc.bindEvents.js"></script>
+<script src="js/linkurious/misc/sigma.misc.bindDOMEvents.js"></script>
+<script src="js/linkurious/misc/sigma.misc.drawHovers.js"></script>
+<!-- END SIGMA IMPORTS -->
+
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/settings.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/webgl/sigma.webgl.nodes.def.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/webgl/sigma.webgl.nodes.fast.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/webgl/sigma.webgl.edges.def.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/webgl/sigma.webgl.edges.fast.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/webgl/sigma.webgl.edges.arrow.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.labels.def.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.hovers.def.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.def.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.cross.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.diamond.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.equilateral.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.square.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.star.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.def.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.curve.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.arrow.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+
+<script src="js/linkurious/plugins/sigma.renderers.edgeLabels/settings.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
+<script src="js/linkurious/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
+
+
+<script src="js/linkurious/plugins/sigma.parsers.json/sigma.parsers.json.js"></script>
+<script src="js/linkurious/plugins/sigma.parsers.cypher/sigma.parsers.cypher.js"></script>
+ <script src="js/sigma.canvas.labels.moneyfollower.js"></script> 
+
+<script src="js/linkurious/plugins/sigma.plugins.animate/sigma.plugins.animate.js"></script>
+<script src="js/linkurious/plugins/sigma.layouts.forceLink/worker.js"></script>
+<script src="js/linkurious/plugins/sigma.layouts.forceLink/supervisor.js"></script>
+    
+  
+  <script>
+    BASE_PATH = '/data';
+    CMS_URL = 'https://beta.fec.gov',
+    API_LOCATION = 'https://api.open.fec.gov/';
+    API_VERSION = 'v1';
+    API_KEY = '5yyI90SU3Xb73TVlv4wrEhQxYcCwMWCywQiGdYbJ';
+
+    function trackMetric(name, imagesSelector) {
+      if (imagesSelector) {
+        var images = document.querySelectorAll(imagesSelector);
+        if (images && images.length) {
+          for (var i = 0, ilen = images.length; i < ilen; i++) {
+            images[i].addEventListener('load', function() {
+              window.performance.mark(name);
+            });
+          }
+        }
+      }
+      window.performance.mark(name);
+    }
+  </script>
+  
+</head>
+<body>
+  <header class="site-header">
+    <div class="masthead">
+	<div class="page-header__title">Moneyfollower.us</div>
+    </div>
+
+    <nav class="site-nav js-site-nav">
+  <ul id="site-menu" class="site-nav__list">
+  <!--
+    <li class="site-nav__item site-nav__item--with-dropdown is-disabled" data-submenu="data">
+      <a href="/data/" class="site-nav__link">Campaign finance data</a>
+    </li>
+-->    
+    <li class="site-nav__item is-disabled">
+      <a href="https://beta.fec.gov/registration-and-reporting/" class="site-nav__link">Registration and reporting</a>
+    </li>
+    <li class="site-nav__item is-disabled">
+      <a href="https://beta.fec.gov/calendar/" class="site-nav__link">Calendar</a>
+    </li>
+    
+    <li class="site-nav__item is-disabled">
+      <a href="#" class="site-nav__link">Legal resources</a>
+    </li>
+    
+    <li class="site-nav__item utility-nav__item is-disabled">
+      <a href="#" class="site-nav__link">(About)</a>
+    </li>
+    <li class="site-nav__item utility-nav__item">
+      <a href="https://beta.fec.gov/contact-us/" class="site-nav__link">Contact</a>
+    </li>
+  </ul>
+  <!--
+  <button for="nav-toggle" class="js-nav-toggle site-nav__button site-nav__button--left" aria-controls="site-menu">Menu</button>
+  <a title="Home" href="https://beta.fec.gov/" class="site-title"><span class="u-visually-hidden">Federal Election Commission | United States of America</span></a>
+  <button title="View site glossary" class="js-glossary-toggle button--standard site-nav__button site-nav__button--right">Glossary</button>
+  -->
+</nav>
+
+  </header>
+  
+    <main id="main" >
+    
+
+
+
+<section class="hero hero--primary" aria-labelledby="hero-heading">
+  <div class="container">
+    <h1 id="hero-heading" class="t-display">Explore campaign finance data</h1>
+    <h2 class="t-ruled">See how money is raised and spent in federal elections</h2>
+    <div class="hero__content">
+
+
+
+<form id="hero-search" action="/data/" autocomplete="off" class="search__container js-search">
+  <div class="combo combo--search combo--search--large">
+    <select class="search__select js-search-type select--alt-primary" name="search_type" aria-label="Select a search type">
+      <option value="candidates"
+        
+          selected
+        
+      >Candidates</option>
+      <option value="committees"
+        
+      >Committees</option>
+    </select>
+    <input class="js-search-input combo__input" type="text" name="search"
+    aria-label="Search for candidates"
+    placeholder="Search for candidates" autocomplete="off"
+    autocorrect="off" autocapitalize="off" spellcheck="false"
+    value="">
+    <button type="submit" class="combo__button button--search button--standard">
+      <span class="u-visually-hidden">Search</span>
+    </button>
+  </div>
+</form>
+
+    </div>
+  </div>
+</section>
+
+<section class="main__content--full" style="padding-top: 0">
+
+<div id="filters" class="filters is-open" style="min-height: 1438px;">
+  <div class="filters__hider">
+    <h2 class="filter__header filters__inner">
+      
+Interesting Graphs
+
+    </h2>
+    <form id="category-filters">
+      <div class="filters__message-container">
+        
+<div class="message message--info message--small message--inverse-alt">
+  <span class="t-block">Click and drag the graph around. Mousewheel zooms in and out. 
+  Double click on a node to see graph centered around that committee.</span>
+</div>
+
+</div>
+
+    </form>
+  </div>
+</div>
+    <div class="data-container" style ="width:80%">
+    		           <div class="sigma-chart dataTables_wrapper no-footer dataTables_wrapper--panel" >
+                               <div id="container">
+			 
+			 
+    <style>
+        #graph-container {
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            position: inherit;
+	  
+	#layout-notification {
+      display: block;
+      position: absolute;
+      top: 1em;
+      left: 1em;
+      visibility: hidden;
+      font-weight: bold;
+    }
+
+        }
+    </style>
+    <div id="graph-container" style="width: 80%; height: 1024px;"><span id="layout-notification" class="visibility:hidden">Layout in progress...</span></div>
+</div>
+</div> 
+    </div>
+
+ </section>
+</main>    
+
+
+
+<script src="fec-template/public/main.js"></script>
+<script>
+
+var settings = {
+  placeHolderOptions: {
+    'candidates': 'Search candidates',
+    'committees': 'Search committees'
+  }
+};
+
+function onSelectChange($input, updatedText) {
+  $input.attr('placeholder', updatedText).attr('aria-label', updatedText);
+}
+
+ var $select = $('.js-search-type'),
+      $input = $('input[type="text"]');
+
+    $select.on('change', function(ev) {
+      ev.preventDefault();
+      var value = $(this).val();
+      events.emit('searchTypeChanged', {type: value});
+      onSelectChange($input, settings.placeHolderOptions[value]);
+    });
+	
+</script>
+
+<script type="application/javascript">
+
+	this.doFavorite = function(key){
+		doQuery(moneyfollowerSettings.favorites[key]);
+	}
+	this.doCandidateQuery= function(fecID){
+		doQuery('MATCH (a)-[r:DISBURSES]->(c)-[s:SUPPORTS]->(n:Candidate {id:"'+fecID+'"}) with r as disbursement, a as committee, c as candidateCommittee, n as candidate, s as related, sum(r.amount) as total RETURN disbursement, committee,candidateCommittee,candidate, related, total LIMIT 25');
+
+	}
+	
+	this.doCommitteeQuery = function(fecID){
+		doQuery('MATCH p=({id:"'+fecID+'"})-[r:DISBURSES]-(p2) with p as cmttee, sum(r.amount) as total RETURN cmttee, total  order by total desc LIMIT 30');
+	}
+	
+ //   { url: 'http://localhost:7474', user: 'neo4j', password: 'foobar' },	
+	this.doQuery = function(query){
+   sigma.neo4j.cypher(
+            {
+            url : 'http://ec2-52-39-169-19.us-west-2.compute.amazonaws.com:7474',
+            user: 'neo4j',
+            password: '@u%R9utIArGv'
+        },
+        
+            query,
+	  this.sigmaInst,
+            function(s) {
+	      updateGraphNode(s);
+	      s.refresh();
+                console.log('Number of nodes :'+ s.graph.nodes().length);
+                console.log('Number of edges :'+ s.graph.edges().length);
+	      
+ // Configure the ForceLink algorithm:
+  var fa = sigma.layouts.configForceLink(s, {
+    worker: true,
+    autoStop: true,
+    background: true,
+    scaleRatio: 30,
+    easing: 'cubicInOut',
+    
+         linLogMode: false,
+            outboundAttractionDistribution: false,
+            adjustSizes: true,
+            edgeWeightInfluence: 0,
+            scalingRatio: 1,
+            strongGravityMode: false,
+            gravity: 5,
+            slowDown: 1,
+            barnesHutOptimize: true,
+            barnesHutTheta: 0.5,
+            startingIterations: 1,
+	  avgDistanceThreshold : 0.001,
+            iterationsPerRender: 5,
+maxIterations: 3000	  
+  });
+
+  // Bind the events:
+  fa.bind('start stop', function(e) {
+    console.log(e.type);
+    document.getElementById('layout-notification').style.visibility = 'hidden';
+    if (e.type == 'start') {
+      document.getElementById('layout-notification').style.visibility = 'visible';
+    }
+  });
+
+  // Start the ForceLink algorithm:
+  sigma.layouts.startForceLink();	      
+            }
+    );	
+	
+	}
+
+  /**
+     * Here is just a basic example on how to properly display a neo4j cypher query.
+     *
+     * The plugin sigma.neo4j.cypher can load a cypher query, parse the JSON response,
+     * and instantiate sigma when the response is received.
+     *
+     * It based on the json parser (that's why its must be loaded).
+     */
+         var moneyfollowerSettings = {
+	nodeColors: {REP:'#e81b23',DEM:'#00aef3',IND:'#ffb602'},
+	defaultNodeColor: '#36bdbb',
+	       favorites: {'Rodney Davis':
+		'MATCH (a)-[r:DISBURSES]->(c)-[s:SUPPORTS]->(n:Candidate {id:"H2IL13120"}) with r as disbursement, a as committee, c as candidateCommittee, n as candidate, s as related, sum(r.amount) as total RETURN disbursement, committee,candidateCommittee,candidate, related, total LIMIT 25', 
+
+		
+		'Top 10':'MATCH p=()-[r:DISBURSES]->() with p as cmtee, sum(r.amount) as total WHERE total > 10000 RETURN cmtee order by total desc LIMIT 10',
+
+		'Danny K. Davis':
+		'MATCH (a)-[r:DISBURSES]->(c)-[s:SUPPORTS]->(n:Candidate {id:"H4IL07037"}) with r as disbursement, a as committee, c as candidateCommittee, n as candidate, s as related, sum(r.amount) as total RETURN disbursement, committee,candidateCommittee,candidate, related, total LIMIT 25', 
+		'Mark Kirk':
+		'MATCH p=()-[r:DISBURSES]->({id:"C00350785"}) with p as cmtee, sum(r.amount) as total RETURN cmtee ORDER BY total desc LIMIT 25', 
+		'Dick Durbin':
+		'MATCH p=()-[r:DISBURSES]->({id:"C00148999"}) with p as cmtee, sum(r.amount) as total RETURN cmtee ORDER BY total desc LIMIT 25'}		
+	};
+     
+     var settings = {
+  nodeActiveColor: 'default',
+  nodeBorderSize: 1,
+  nodeActiveBorderSize: 2,
+  nodeActiveOuterBorderSize: 3,
+  defaultNodeBorderColor: '#fff',
+  defaultNodeHoverBorderColor: '#fff',
+  defaultNodeActiveBorderColor: '#fff',
+  defaultNodeActiveOuterBorderColor: 'rgb(236, 81, 72)',
+
+      edgeLabelSize: 'proportional',
+    edgeLabelThreshold: 3,
+    minEdgeSize: 3,
+    maxEdgeSize:5,
+    minNodeSize:1,
+    maxNodeSize:9,
+
+  maxNodeLabelLineLength: 15,
+
+  zoomMin: 0.001,
+  zoomMax: 3,
+
+  shortLabelsOnHover: true,    // enable the short label display mode
+  spriteSheetResolution: 2048, // resolution of the sprite sheet square
+  spriteSheetMaxSprites: 8     // number max of sprites
+};
+
+this.sigmaInst = new sigma({
+  renderer: {
+   container: 'graph-container'  ,
+    type: 'canvas'
+  },
+  settings: settings
+});
+  	
+	this.doQuery('MATCH p=()-[r:DISBURSES]->() with p as cmtee, sum(r.amount) as total WHERE total > 10000 RETURN cmtee order by total desc LIMIT 20');
+
+       /**
+         * Update sigma graph node.
+         */
+        this.updateGraphNode = function (s) {
+            var  i, j, k, node, field, label;
+
+	  s.graph.nodes().forEach(function(node){
+	      node.size = 3;
+	      node.label = node.neo4j_data.name;
+	      if(node.neo4j_data.party != ''){
+		node.colors = [moneyfollowerSettings.nodeColors[node.neo4j_data.party]];
+	      }else{
+	      	node.colors = [moneyfollowerSettings.defaultNodeColor];
+	      }   
+            });
+	  
+	  s.graph.edges().forEach(function(edge){
+		if(edge.neo4j_type != 'SUPPORTS'){
+			edge.label= edge.neo4j_data.amount.toLocaleString();
+		}
+		edge.type="arrow";
+		edge.size=3;
+	  });
+
+        };
+	
+
+
+</script>
+
+</body>
