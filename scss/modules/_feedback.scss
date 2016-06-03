@@ -71,6 +71,7 @@
   position: fixed;
   right: u(4rem);
   z-index: $z-feedback;
+  visibility: hidden;
 }
 
 .feedback__button {

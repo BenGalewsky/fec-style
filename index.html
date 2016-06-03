@@ -2,9 +2,7 @@
 <html lang="en">
 <head>
 
-  <title>
-  Campaign finance data
- - beta.FEC.gov</title>
+  <title>Money Follower - Explore Campaign Finance Flows</title>
  <link rel="stylesheet" href="css/styles.css" />
 
     <!-- START SIGMA IMPORTS -->
@@ -77,7 +75,6 @@
 
 <script src="js/linkurious/plugins/sigma.parsers.json/sigma.parsers.json.js"></script>
 <script src="js/linkurious/plugins/sigma.parsers.cypher/sigma.parsers.cypher.js"></script>
- <script src="js/sigma.canvas.labels.moneyfollower.js"></script> 
 
 <script src="js/linkurious/plugins/sigma.plugins.animate/sigma.plugins.animate.js"></script>
 <script src="js/linkurious/plugins/sigma.layouts.forceLink/worker.js"></script>
@@ -134,7 +131,7 @@
     <li class="site-nav__item utility-nav__item is-disabled">
       <a href="#" class="site-nav__link">(About)</a>
     </li>
-    <li class="site-nav__item utility-nav__item">
+    <li class="site-nav__item utility-nav__item is-disabled">
       <a href="https://beta.fec.gov/contact-us/" class="site-nav__link">Contact</a>
     </li>
   </ul>
@@ -386,6 +383,7 @@ maxIterations: 3000
 
   zoomMin: 0.001,
   zoomMax: 3,
+  doubleClickEnabled: false,
 
   shortLabelsOnHover: true,    // enable the short label display mode
   spriteSheetResolution: 2048, // resolution of the sprite sheet square
@@ -399,7 +397,12 @@ this.sigmaInst = new sigma({
   },
   settings: settings
 });
-  	
+  
+this.sigmaInst.bind('doubleClickNode', function(n) {
+          console.log(n.type, n.data.node.label);
+	window.doCommitteeQuery(n.data.node.neo4j_data.id)
+});
+        
 	this.doQuery('MATCH p=()-[r:DISBURSES]->() with p as cmtee, sum(r.amount) as total WHERE total > 10000 RETURN cmtee order by total desc LIMIT 20');
 
        /**
