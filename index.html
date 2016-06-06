@@ -201,7 +201,48 @@ Interesting Graphs
   Double click on a node to see graph centered around that committee.</span>
 </div>
 
+
+
 </div>
+
+<fieldset class="js-filter js-dropdown filter">
+  <legend class="label">Intersting Queries</legend>
+  <div class="dropdown">
+    <button type="button" class="dropdown__button button--alt">Try These...</button>
+    <div id="election_year-dropdown" class="dropdown__panel" aria-hidden="true">
+      <ul class="dropdown__list">
+      
+        <li class="dropdown__item">
+                  <input id="election_year-checkbox-1980" name="election_year" type="checkbox" value="1980" />
+          <label class="dropdown__value" for="election_year-checkbox-2016" onclick="doFavorite('Top 10')">Top 10</label>
+        </li>
+        
+        <li class="dropdown__item">
+          <label class="dropdown__value" for="election_year-checkbox-2012" onClick="doFavorite('Koch Brothers')">Koch Brothers</label>
+        </li>
+      
+        <li class="dropdown__item">
+          <label class="dropdown__value" for="election_year-checkbox-2014" onclick="doFavorite('Kirk vs Duckworth')">IL Senate</label>
+        </li>
+      
+
+        <li class="dropdown__item">
+          <label class="dropdown__value" for="election_year-checkbox-2010" onclick="doFavorite('Toomey vs McGinty')">PA Senate</label>
+        </li>
+      
+        <li class="dropdown__item">
+          <label class="dropdown__value" for="election_year-checkbox-2008" onClick="doFavorite('Portman vs Strickland')">OH Senate</label>
+        </li>
+      
+        <li class="dropdown__item">
+          <label class="dropdown__value" for="election_year-checkbox-2006" onclick="doFavorite('Raskin vs Cox')">MD 08</label>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+</fieldset>
+
 
     </form>
   </div>
@@ -311,14 +352,14 @@ function onSelectChange($input, updatedText) {
             edgeWeightInfluence: 0,
             scalingRatio: 1,
             strongGravityMode: false,
-            gravity: 5,
+            gravity: 4,
             slowDown: 1,
             barnesHutOptimize: true,
             barnesHutTheta: 0.5,
             startingIterations: 1,
 	  avgDistanceThreshold : 0.001,
             iterationsPerRender: 5,
-maxIterations: 3000	  
+maxIterations: 6000	  
   });
 
   // Bind the events:
@@ -348,14 +389,24 @@ maxIterations: 3000
          var moneyfollowerSettings = {
 	nodeColors: {REP:'#e81b23',DEM:'#00aef3',IND:'#ffb602'},
 	defaultNodeColor: '#36bdbb',
-	       favorites: {'Rodney Davis':
-		'MATCH (a)-[r:DISBURSES]->(c)-[s:SUPPORTS]->(n:Candidate {id:"H2IL13120"}) with r as disbursement, a as committee, c as candidateCommittee, n as candidate, s as related, sum(r.amount) as total RETURN disbursement, committee,candidateCommittee,candidate, related, total LIMIT 25', 
+	       favorites: {'Kirk vs Duckworth':
+		'MATCH (a)-[r:DISBURSES]->(c)-[s:SUPPORTS]->(n:Candidate ) where n.id="S0IL00261" or n.id="S6IL00292" with r as disbursement, a as committee, c as candidateCommittee, n as candidate, s as related, sum(r.amount) as total RETURN disbursement, committee,candidateCommittee,candidate, related, total LIMIT 35', 
 
 		
 		'Top 10':'MATCH p=()-[r:DISBURSES]->() with p as cmtee, sum(r.amount) as total WHERE total > 10000 RETURN cmtee order by total desc LIMIT 10',
+		
+		'Koch Brothers':
+		'MATCH (a)-[r:DISBURSES]->(c) where a.id="C70005079" or a.id="C00236489" with r as disbursement, a as committee, c as committee2, sum(r.amount) as total RETURN disbursement, committee,committee2, total LIMIT 25', 
 
-		'Danny K. Davis':
-		'MATCH (a)-[r:DISBURSES]->(c)-[s:SUPPORTS]->(n:Candidate {id:"H4IL07037"}) with r as disbursement, a as committee, c as candidateCommittee, n as candidate, s as related, sum(r.amount) as total RETURN disbursement, committee,candidateCommittee,candidate, related, total LIMIT 25', 
+		'Toomey vs McGinty':
+		'MATCH (a)-[r:DISBURSES]->(c)-[s:SUPPORTS]->(n:Candidate ) where n.id="S4PA00121" or n.id="S6PA00266" with r as disbursement, a as committee, c as candidateCommittee, n as candidate, s as related, sum(r.amount) as total RETURN disbursement, committee,candidateCommittee,candidate, related, total LIMIT 35',
+		
+		'Portman vs Strickland':
+		'MATCH (a)-[r:DISBURSES]->(c)-[s:SUPPORTS]->(n:Candidate ) where n.id="S0OH00133" or n.id="S6OH00254" with r as disbursement, a as committee, c as candidateCommittee, n as candidate, s as related, sum(r.amount) as total RETURN disbursement, committee,candidateCommittee,candidate, related, total LIMIT 35',
+		
+		'Raskin vs Cox':
+		'MATCH (a)-[r:DISBURSES]->(c)-[s:SUPPORTS]->(n:Candidate ) where n.id="H6MD08457" or n.id="H6MD08564" with r as disbursement, a as committee, c as candidateCommittee, n as candidate, s as related, sum(r.amount) as total RETURN disbursement, committee,candidateCommittee,candidate, related, total LIMIT 35',		
+		
 		'Mark Kirk':
 		'MATCH p=()-[r:DISBURSES]->({id:"C00350785"}) with p as cmtee, sum(r.amount) as total RETURN cmtee ORDER BY total desc LIMIT 25', 
 		'Dick Durbin':
