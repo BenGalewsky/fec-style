@@ -60,7 +60,6 @@
 <script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.cross.js"></script>
 <script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.diamond.js"></script>
 <script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.equilateral.js"></script>
-<script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.square.js"></script>
 <script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.nodes.star.js"></script>
 <script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.def.js"></script>
 <script src="js/linkurious/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.curve.js"></script>
@@ -79,6 +78,8 @@
 <script src="js/linkurious/plugins/sigma.plugins.animate/sigma.plugins.animate.js"></script>
 <script src="js/linkurious/plugins/sigma.layouts.forceLink/worker.js"></script>
 <script src="js/linkurious/plugins/sigma.layouts.forceLink/supervisor.js"></script>
+    
+ <script src="js/linkurious/plugins/sigma.plugins.dragNodes/sigma.plugins.dragNodes.js"></script> 
     
   
   <script>
@@ -186,7 +187,7 @@
 
 <section class="main__content--full" style="padding-top: 0">
 
-<div id="filters" class="filters is-open" style="min-height: 1438px;">
+<div id="filters" class="filters is-open" style="min-height: 1438px; float:left">
   <div class="filters__hider">
     <h2 class="filter__header filters__inner">
       
@@ -247,7 +248,7 @@ Interesting Graphs
     </form>
   </div>
 </div>
-    <div class="data-container" style ="width:80%">
+    <div class="data-container" style ="width:80%; float:right">
     		           <div class="sigma-chart dataTables_wrapper no-footer dataTables_wrapper--panel" >
                                <div id="container">
 			 
@@ -280,6 +281,23 @@ Interesting Graphs
 </main>    
 
 
+<footer class="footer">
+  <div class="container">
+    <div class="seal">
+	<a href="https://chihacknight.org/" target="_blank">
+      <img class="seal__img" width="140" height="140" src="static/img/chihacklogo.png" alt="Chi Hacknight">
+      </a>
+    </div>
+    <div class="address">
+      <p class="address__title">Moneyfollower.us</p>
+      <p>Developed at Chi Hacknight</p>
+      <p>Chicago, IL</p>
+      <p class="address__subtitle">Contact us!</p>
+      <p><a href="mailto:info@moneyfollower.us">info@moneyfollower.us</a><img class="icon--inline--right" src="static/img/i-email--inverse.svg" alt="Icon of email being sent"></p>
+      <p><a href="https://github.com/BenGalewsky/moneyfollower" target="_blank">GitHub repository</a><img class="icon--inline--right" src="static/img/i-github--inverse.png" alt="Icon of GitHub logo"></p>
+    </div>
+  </div>
+</footer>
 
 <script src="fec-template/public/main.js"></script>
 <script>
@@ -387,8 +405,8 @@ maxIterations: 6000
      * It based on the json parser (that's why its must be loaded).
      */
          var moneyfollowerSettings = {
-	nodeColors: {REP:'#e81b23',DEM:'#00aef3',IND:'#ffb602'},
-	defaultNodeColor: '#36bdbb',
+	nodeColors: {REP:'#e81b23',DEM:'#00aef3',IND:'#ffb602', UNK:'#aeb0b5'},
+	defaultNodeColor: '#aeb0b5',
 	       favorites: {'Kirk vs Duckworth':
 		'MATCH (a)-[r:DISBURSES]->(c)-[s:SUPPORTS]->(n:Candidate ) where n.id="S0IL00261" or n.id="S6IL00292" with r as disbursement, a as committee, c as candidateCommittee, n as candidate, s as related, sum(r.amount) as total RETURN disbursement, committee,candidateCommittee,candidate, related, total LIMIT 35', 
 
@@ -448,6 +466,9 @@ this.sigmaInst = new sigma({
   },
   settings: settings
 });
+
+// Initialize the dragNodes plugin:
+var dragListener = sigma.plugins.dragNodes(this.sigmaInst, this.sigmaInst.renderers[0]);
   
 this.sigmaInst.bind('doubleClickNode', function(n) {
           console.log(n.type, n.data.node.label);
@@ -465,11 +486,11 @@ this.sigmaInst.bind('doubleClickNode', function(n) {
 	  s.graph.nodes().forEach(function(node){
 	      node.size = 3;
 	      node.label = node.neo4j_data.name;
-	      if(node.neo4j_data.party != ''){
-		node.colors = [moneyfollowerSettings.nodeColors[node.neo4j_data.party]];
-	      }else{
-	      	node.colors = [moneyfollowerSettings.defaultNodeColor];
-	      }   
+	      node.colors = [moneyfollowerSettings.nodeColors[node.neo4j_data.party]];
+	      if (typeof node.colors[0] === "undefined"){
+		node.colors = [moneyfollowerSettings.defaultNodeColor];
+	      }
+
             });
 	  
 	  s.graph.edges().forEach(function(edge){
