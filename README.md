@@ -1,33 +1,23 @@
-[![Build Status](https://img.shields.io/travis/18F/fec-style/master.svg)](https://travis-ci.org/18F/fec-style)
-[![Test Coverage](https://img.shields.io/codecov/c/github/18F/fec-style/master.svg)](https://codecov.io/github/18F/fec-style)
 
-## Campaign finance for everyone
-The Federal Election Commission (FEC) releases information to the public about money that’s raised and spent in federal elections — that’s elections for US president, Senate, and House of Representatives.
+## Moneyfollower.us
+This application uses [neo4j](http://neo4j.com/) network database to model the flows of campaign money between Political Action Committees (PACs) to federal candidates. With a network graph visulaization it's easy
+to see the complex flows that occur between PACs. You can double-click on any committee to follow the money
+and get a new graph centered on the selected committee.
 
-Are you interested in seeing how much money a candidate raised? Or spent? How much debt they took on? Who contributed to their campaign? The FEC is the authoritative source for that information.
+## The Data
+The data is downloaded from the [Federal Election Commission](http://www.fec.gov/finance/disclosure/ftpdet.shtml#a2015_2016). In 1975, Congress created the Federal Election Commission (FEC) to administer and enforce the Federal Election Campaign Act (FECA) - the statute that governs the financing of federal elections. The duties of the FEC, which is an independent regulatory agency, are to disclose campaign finance information, to enforce the provisions of the law such as the limits and prohibitions on contributions, and to oversee the public funding of Presidential elections.
 
-betaFEC is a collaboration between [18F](http://18f.gsa.gov) and the FEC. It aims to make campaign finance information more accessible (and understandable) to all users.
+## The App
+I am very grateful for the work that [18F](http://18f.gsa.gov) is doing to develop a brand new website for the FEC using opensource. This application is based on a [fork](https://github.com/18F/fec-style) of the shared 
+components and styles used in FEC's application. I also make use of their API to provide suggestions
+for the search box.
 
-## FEC repositories
-We welcome you to explore, make suggestions, and contribute to our code.
+The visualization is based on the [Sigma.js](http://sigmajs.org/) javascript library.
 
-This repository, [fec-style](https://github.com/18F/fec-style), houses our shared styles and user interface components.
-
-### All repositories
-- [FEC](https://github.com/18F/fec): a general discussion forum. We [compile feedback](https://github.com/18F/fec/issues) from betaFEC’s feedback widget here, and this is the best place to submit general feedback.
-- [openFEC](https://github.com/18F/openfec): betaFEC’s API
-- [openFEC-web-app](https://github.com/18f/openfec-web-app): the betaFEC web app for exploring campaign finance data
-- [fec-style](https://github.com/18F/fec-style): shared styles and user interface components
-- [fec-cms](https://github.com/18F/fec-cms): the content management system (CMS) for betaFEC
-
-## Get involved
-We’re thrilled you want to get involved!
-- Read our [contributing guidelines](https://github.com/18F/openfec/blob/master/CONTRIBUTING.md). Then, [file an issue](https://github.com/18F/fec/issues) or submit a pull request.
-- [Send us an email](mailto:betafeedback@fec.gov).
-- If you’re a developer, follow the installation instructions in the README.md page of each repository to run the apps on your computer.
-- Check out our StoriesonBoard [FEC story map](https://18f.storiesonboard.com/m/fec) to get a sense of the user needs we'll be addressing in the future.
-
----
+## Data Load
+I have some simple python scripts to process csv files downloaded from the FEC's site. I load
+the data into a local instance of neo4j and then package the database file up and upload it to my Amazon EC2 
+instance serving up data for the website.
 
 
 ## Set up
@@ -134,8 +124,3 @@ Downstream applications should pin versions as appropriate. For example, to get 
             "fec-style": "~1.0"
         }
     }
-
-## Copyright and licensing
-This project is in the public domain within the United States, and we waive worldwide copyright and related rights through [CC0 universal public domain dedication](https://creativecommons.org/publicdomain/zero/1.0/). Read more on our license page.
-
-A few restrictions limit the way you can use FEC data. For example, you can’t use contributor lists for commercial purposes or to solicit donations. Learn more on FEC.gov.
