@@ -175,7 +175,7 @@
     placeholder="Search for candidates" autocomplete="off"
     autocorrect="off" autocapitalize="off" spellcheck="false"
     value="">
-    <button type="submit" class="combo__button button--search button--standard">
+    <button type="button" class="combo__button button--search button--standard" onClick='doSearchButton()'>
       <span class="u-visually-hidden">Search</span>
     </button>
   </div>
@@ -337,6 +337,10 @@ function onSelectChange($input, updatedText) {
 	
 	this.doCommitteeQuery = function(fecID){
 		doQuery('MATCH p=({id:"'+fecID+'"})-[r:DISBURSES]-(p2) with p as cmttee, sum(r.amount) as total RETURN cmttee, total  order by total desc LIMIT 30');
+	}
+	
+	this.doSearchButton = function(){
+			// Do nothing here - typeahead will already have done the search
 	}
 	
  //   { url: 'http://localhost:7474', user: 'neo4j', password: 'foobar' },	
@@ -504,6 +508,17 @@ this.sigmaInst.bind('doubleClickNode', function(n) {
         };
 	
 
+
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-60659405-2', 'auto');
+  ga('send', 'pageview');
 
 </script>
 
